@@ -37,9 +37,14 @@
   }
 }
 
-a {
+.card_title {
   font-size: 18px;
 }
+
+.card_icon {
+  margin: 0px 5px;
+}
+
 .card {
   border: 2px solid black;
   padding: 1rem;

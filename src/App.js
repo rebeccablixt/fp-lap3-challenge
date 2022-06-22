@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 // import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import moment from 'moment';
 
 
 // import getResult from './actions';
@@ -51,8 +52,14 @@ function App() {
     <div>
       {repos.map(repo => (
         <div key={repo.id} className="card">
-          <a href={repo.html_url}>{repo.name}</a>
+          <a href={repo.html_url} className="card_title">{repo.name}</a>
+          <p>{repo.private ? 'Private': 'Public'}</p>
           <p>{repo.description}</p>
+          <p>{repo.language}</p>
+          <a href={repo.stargazers_url} className="card_icon">{repo.stargazers_count}</a>
+          <a href={repo.forks_url} className="card_icon">{repo.forks_count}</a>
+          <a href={repo.issues_url} className="card_icon">{repo.open_issues_count}</a>
+          <p>{moment(repo.updated_at).fromNow()}</p>
         </div>))}
     </div>
     </>
