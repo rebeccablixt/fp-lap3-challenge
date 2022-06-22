@@ -18,7 +18,6 @@ li {
 
 .first {
 	display: flex;
-	/* justify-content: space-evenly; */
 	font-weight: bold;
 }
 
@@ -40,7 +39,7 @@ a {
 }
 
 .last {
-	width: 40%;
+	width: 80%;
 	display: flex;
 	justify-content: space-between;
 	margin-top: 10px;
@@ -48,4 +47,26 @@ a {
 
 .last p {
 	margin: 0;
+}
+
+@media (max-width: 1023px) {
+	ul {
+		width: 60%;
+	}
+}
+
+@media (max-width: 768px) {
+	ul {
+		width: 85%;
+	}
+}
+
+@media (max-width: 520px) {
+	ul {
+		width: 90%;
+	}
+
+	.last {
+		width: 100%;
+	}
 }
