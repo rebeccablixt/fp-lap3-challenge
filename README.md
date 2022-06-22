@@ -11,7 +11,7 @@
 
 ### Usage
 - Site available: `https://velvety-fairy-636073.netlify.app/`
-- Site available locally on localhost:8080
+- Site available locally on localhost:3000
 ## Changelog
 - Added search feature
 - Display cards with required data
