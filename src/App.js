@@ -5,6 +5,7 @@ import moment from 'moment';
 
 // import getResult from './actions';
 import './App.css';
+import { Header } from './layout';
 
 function App() {
 	// const dispatch = useDispatch();
@@ -40,7 +41,8 @@ function App() {
 	};
 
 	return (
-		<>
+		<main>
+			<Header />
 			<h1>Github Repos</h1>
 			<form onSubmit={handleUsernameSubmit}>
 				<input type='text' name='username' onChange={updateInput} />
@@ -50,26 +52,34 @@ function App() {
 			<ul>
 				{repos.map((repo) => (
 					<li key={repo.id} className='card'>
-						<a href={repo.html_url} className='card_title'>
-							{repo.name}
-						</a>
-						<p>{repo.private ? 'Private' : 'Public'}</p>
+						<div className='first'>
+							<a href={repo.html_url} className='card_title'>
+								{repo.name}
+							</a>
+							<p>{repo.private ? 'Private' : 'Public'}</p>
+						</div>
+
 						<p>{repo.description}</p>
-						<p>{repo.language}</p>
-						<a href={repo.stargazers_url} className='card_icon'>
-							{repo.stargazers_count}
-						</a>
-						<a href={repo.forks_url} className='card_icon'>
-							{repo.forks_count}
-						</a>
-						<a href={repo.issues_url} className='card_icon'>
-							{repo.open_issues_count}
-						</a>
-						<p>{moment(repo.updated_at).fromNow()}</p>
+
+						<div className='last'>
+							<p>{repo.language}</p>
+							<a href={repo.stargazers_url} className='card_icon'>
+								★{repo.stargazers_count}
+							</a>
+							<a href={repo.forks_url} className='card_icon'>
+								<p>Forks:&nbsp;</p>
+								{repo.forks_count}
+							</a>
+							<a href={repo.issues_url} className='card_icon'>
+								<p>Issues:&nbsp;</p>
+								{repo.open_issues_count}
+							</a>
+							<p>{moment(repo.updated_at).fromNow()}</p>
+						</div>
 					</li>
 				))}
 			</ul>
-		</>
+		</main>
 	);
 }
 
