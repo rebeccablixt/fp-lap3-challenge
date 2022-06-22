@@ -47,7 +47,7 @@ function App() {
       <input type="text" name="username" onChange={updateInput}/>
       <input type="submit" />
     </form>
-    <h2>{repos[0].id ? `Results for ${username}` : ''}</h2>
+    <h2>{username ? `Results for ${username}` : ''}</h2>
     <div>
       {repos.map(repo => (
         <div key={repo.id} className="card">
