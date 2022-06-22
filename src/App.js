@@ -42,8 +42,9 @@ function App() {
 	return (
 		<>
 			<h1>Github Repos</h1>
-			<form onSubmit={handleUsernameSubmit}>
-				<input type='text' name='username' onChange={updateInput} />
+			<form onSubmit={handleUsernameSubmit} role="form">
+        <label htmlFor="username">username</label>
+				<input id="username" type='text' name='username' onChange={updateInput}/>
 				<input type='submit' />
 			</form>
 			<h2>{username ? `Results for ${username}` : ''}</h2>
