@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+
 import axios from 'axios';
 import moment from 'moment';
 
-// import getResult from './actions';
 import './App.css';
 import { Header } from './layout';
 
 function App() {
-	// const dispatch = useDispatch();
-	const [repos, setRepos] = useState([]);
+	const [repos, setRepos] = useState([{ owner: { login: '' } }]);
 	const [username, setUsername] = useState('');
 
 	const handleUsernameSubmit = (e) => {
@@ -19,19 +17,14 @@ function App() {
 				const { data } = await axios.get(
 					`https://api.github.com/users/${username}/repos`
 				);
-				console.log(data);
 				setRepos(data);
 			} catch (err) {
+				alert('user does not exist');
 				throw new Error(err.message);
 			}
 		};
 		getResult(username);
-		// useEffect(() => {
-
-		// setRepos(getResult(username))
-		console.log(repos);
-		// console.log(getResult(username))
-		// }, [])
+		setUsername('');
 	};
 
 	const updateInput = (e) => {
@@ -44,42 +37,52 @@ function App() {
 		<main>
 			<Header />
 			<h1>Github Repos</h1>
-			<form onSubmit={handleUsernameSubmit} role="form">
-        <label htmlFor="username">username</label>
-				<input id="username" type='text' name='username' onChange={updateInput}/>
+			<form onSubmit={handleUsernameSubmit}>
+				<label htmlFor='username'>username</label>
+				<input
+					id='username'
+					type='text'
+					name='username'
+					onChange={updateInput}
+					value={username}
+				/>
 				<input type='submit' />
 			</form>
-			<h2>{username ? `Results for ${username}` : ''}</h2>
-			<ul>
-				{repos.map((repo) => (
-					<li key={repo.id} className='card'>
-						<div className='first'>
-							<a href={repo.html_url} className='card_title'>
-								{repo.name}
-							</a>
-							<p>{repo.private ? 'Private' : 'Public'}</p>
-						</div>
+			<h2>
+				{repos[0].owner.login ? `Results for ${repos[0].owner.login}` : ''}
+			</h2>
+			{repos[0].owner.login && (
+				<ul>
+					{repos.map((repo) => (
+						<li key={repo.id} className='card'>
+							<div className='first'>
+								<a href={repo.html_url} className='card_title'>
+									{repo.name}
+								</a>
+								<p>{repo.private ? 'Private' : 'Public'}</p>
+							</div>
 
-						<p>{repo.description}</p>
+							<p>{repo.description}</p>
 
-						<div className='last'>
-							<p>{repo.language}</p>
-							<a href={repo.stargazers_url} className='card_icon'>
-								★{repo.stargazers_count}
-							</a>
-							<a href={repo.forks_url} className='card_icon'>
-								<p>Forks:&nbsp;</p>
-								{repo.forks_count}
-							</a>
-							<a href={repo.issues_url} className='card_icon'>
-								<p>Issues:&nbsp;</p>
-								{repo.open_issues_count}
-							</a>
-							<p>{moment(repo.updated_at).fromNow()}</p>
-						</div>
-					</li>
-				))}
-			</ul>
+							<div className='last'>
+								<p>{repo.language}</p>
+								<a href={repo.stargazers_url} className='card_icon'>
+									★{repo.stargazers_count}
+								</a>
+								<a href={repo.forks_url} className='card_icon'>
+									<p>Forks:&nbsp;</p>
+									{repo.forks_count}
+								</a>
+								<a href={repo.issues_url} className='card_icon'>
+									<p>Issues:&nbsp;</p>
+									{repo.open_issues_count}
+								</a>
+								<p>{moment(repo.updated_at).fromNow()}</p>
+							</div>
+						</li>
+					))}
+				</ul>
+			)}
 		</main>
 	);
 }
