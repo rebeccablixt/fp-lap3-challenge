@@ -8,7 +8,7 @@ import './App.css';
 
 function App() {
   // const dispatch = useDispatch();
-  const [repos, setRepos] = useState({})
+  const [repos, setRepos] = useState([])
   const [username, setUsername] = useState('')
   
   
@@ -16,7 +16,7 @@ function App() {
     e.preventDefault()
     const getResult = async (username) => {
             try {
-                const { data } = await axios.get(`https://api.github.com/users/${username}`)
+                const { data } = await axios.get(`https://api.github.com/users/${username}/repos`)
                 console.log(data)
                 setRepos(data)
             } catch (err) {
@@ -25,7 +25,7 @@ function App() {
     }
     getResult(username)
     // useEffect(() => {
-      
+    
 
 
       // setRepos(getResult(username))
@@ -42,12 +42,19 @@ function App() {
 
   return (
     <>
+    <h1>Github Repos</h1>
     <form onSubmit={handleUsernameSubmit}>
       <input type="text" name="username" onChange={updateInput}/>
       <input type="submit" />
     </form>
-    <h2>{username}</h2>
-    <p>{repos.login}</p>
+    <h2>{repos[0].id ? `Results for ${username}` : ''}</h2>
+    <div>
+      {repos.map(repo => (
+        <div key={repo.id} className="card">
+          <a href={repo.html_url}>{repo.name}</a>
+          <p>{repo.description}</p>
+        </div>))}
+    </div>
     </>
   );
 }
