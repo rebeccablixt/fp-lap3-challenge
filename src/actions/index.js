@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getResult = username => {
+const getResult = async (username) => {
         try {
             const { data } = await axios.get(`https://api.github.com/users/${username}`)
             console.log(data)
