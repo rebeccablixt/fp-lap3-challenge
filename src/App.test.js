@@ -1,8 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe('Searchform', () => {
+  // let getResultMock;
+
+  beforeEach(() => {
+    // getResultMock = jest.fn();
+    render(<App />)
+  });
+
+  test('it renders a form', () => {
+    let form = screen.getByRole('form');
+    expect(form).toBeInTheDocument();;
+});
+
 });
